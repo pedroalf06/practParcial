@@ -4,6 +4,7 @@
 
 package com.mycompany.calcularsueldo;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -18,6 +19,10 @@ public class CalcularSueldo {
         String nombre, departamento,cargo;
         double asignacion;
         int opc;
+        
+       ArrayList<grupoX> listaX = new ArrayList<>();
+       ArrayList<grupoY> listaY = new ArrayList<>();
+        
         
         do{
         
@@ -42,8 +47,8 @@ public class CalcularSueldo {
         System.out.println("Ingrese la asignacion mensual: ");
         asignacion = sc.nextDouble();
         
-        grupoX X = new grupoX();
-       
+        
+       grupoX X = new grupoX();
         
         X.setNombre(nombre);
         X.setDepartamento(departamento);
@@ -53,9 +58,8 @@ public class CalcularSueldo {
         
         X.calcularQuincena();
         
-        System.out.println("------Salida------");
-        System.out.println("Nombre: " + X.getNombre());
-        System.out.println("Sueldo: " + X.getSueldoQuincenal());
+        listaX.add(X);
+        
         break;
         
         case 2: 
@@ -75,23 +79,17 @@ public class CalcularSueldo {
          System.out.println("Ingrese la cuota por hora: ");
         double cuota = sc.nextDouble();
         
-        grupoY Y = new grupoY();
+         grupoY Y = new grupoY();
         
         Y.setNombre(nombre);
         Y.setDepartamento(departamento);
         Y.setCargo(cargo);
-        
-        
         Y.setCuotasTrabajadas(cuota);
         Y.setHorasTrab(horas);
-        
-        
-        
         Y.calcularQuincena();
         
-        System.out.println("------Salida------");
-        System.out.println("Nombre: " + Y.getNombre());
-        System.out.println("Sueldo: " + Y.getSueldoQuincenal());
+        listaY.add(Y);
+
        break;
        
         case 3: System.out.println("PROGRAMA FINALIZADO");
@@ -101,5 +99,22 @@ public class CalcularSueldo {
         default: System.out.println("opcion invalida");
         }
         }while(opc != 3);
+        
+                
+      System.out.println("\n====== REPORTES FINALES ======");
+        
+        System.out.println("------ Salidas Grupo X ------");
+        for (int i = 0; i < listaX.size(); i++) {
+            grupoX x = listaX.get(i);
+            System.out.println("Nombre: " + x.getNombre() + " | Sueldo: " + x.getSueldoQuincenal());
+        }
+        
+        System.out.println("\n------ Salidas Grupo Y ------");
+        for (int j =0;j<listaY.size();j++) {
+            grupoY y = listaY.get(j);
+            System.out.println("Nombre: " + y.getNombre() + " | Sueldo: " + y.getSueldoQuincenal());
+        }
+        
+        
     }
 }
